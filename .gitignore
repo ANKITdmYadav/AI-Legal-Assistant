@@ -1,0 +1,25 @@
+# Environment secrets
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+.venv/
+
+# Any accidental local vector store dumps
+*.sqlite3
+*.faiss
+chroma_db/
+faiss_index/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+
+overview.txt
+.overview.txt

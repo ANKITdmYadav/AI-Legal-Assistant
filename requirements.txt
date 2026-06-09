@@ -1,0 +1,15 @@
+streamlit
+langchain
+langchain-community
+langchain-groq
+langchain-huggingface
+sentence-transformers
+faiss-cpu
+pdfplumber
+python-dotenv
+chromadb
+pypdf
+pdfplumber
+rank-bm25
+python-dotenv
+torch
