@@ -3,6 +3,7 @@ langchain
 langchain-community
 langchain-groq
 langchain-huggingface
+langchain-core
 sentence-transformers
 faiss-cpu
 pdfplumber
@@ -13,3 +14,6 @@ pdfplumber
 rank-bm25
 python-dotenv
 torch
+datasets
+langchain-google-genai
+deepeval

@@ -28,6 +28,13 @@ def load_uploaded_pdf(uploaded_file):
     temp_path = None
 
     try:
+        # case1 : for local file path(evaluation)
+        if isinstance(uploaded_file, str):
+            loader = PDFPlumberLoader(uploaded_file)
+            documents = loader.load()
+            return documents
+
+        # case2: for streamlit uploaded file
         with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as temp_file:
             temp_file.write(uploaded_file.getbuffer())
             temp_path = temp_file.name
