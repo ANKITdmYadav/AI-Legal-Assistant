@@ -8,11 +8,7 @@ from config import (GROQ_MODEL,INITIAL_RETRIEVAL_K,FINAL_TOP_K,RERANKER_MODEL)
 
 llm_model = ChatGroq(model=GROQ_MODEL,temperature=0)
 
-@st.cache_resource
-def load_reranker():
-    return CrossEncoder(RERANKER_MODEL)
 
-reranker = load_reranker()
 
 RAG_PROMPT = """
 You are an AI Legal Assistant specialized in answering questions ONLY from uploaded legal documents.
@@ -64,15 +60,19 @@ def reciprocal_rank_fusion(results,k=8):
         key=lambda x:x[1],
         reverse=True
     )
-    final_docs= [
-        unique_docs[doc_id]
-        for doc_id, _ in reranked_results
-    ]
+    final_docs= [ unique_docs[doc_id] for doc_id, _ in reranked_results ]
 
     return final_docs
 
 
 # AFTER RRF DO RERANK 
+
+@st.cache_resource
+def load_reranker():
+    return CrossEncoder(RERANKER_MODEL)
+
+reranker = load_reranker()
+
 def rerank_documents(query, documents):
 
     pairs = [ [query, doc.page_content] for doc in documents]
@@ -105,9 +105,7 @@ def retrieve_documents(query, retrievers):
 
     bm25_docs = bm25_retriever.invoke(query)
 
-    fused_docs = reciprocal_rank_fusion(
-        [vector_docs, bm25_docs]
-    )
+    fused_docs = reciprocal_rank_fusion([vector_docs, bm25_docs])
     
     # return fused_docs[:TOP_K_RESULTS]
     # print(f"before_rerank:",len(fused_docs[:TOP_K_RESULTS]))
@@ -117,10 +115,7 @@ def retrieve_documents(query, retrievers):
 
 
 
-    reranked_docs = rerank_documents(
-        query,
-        fused_docs
-    )
+    reranked_docs = rerank_documents(query,fused_docs)
 
     # print("\nRETRIEVED DOCS:")
     # for i, doc in enumerate(reranked_docs):

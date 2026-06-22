@@ -22,7 +22,6 @@ uploaded_files = st.file_uploader(
 
 if uploaded_files:
     if st.button("Process PDFs"):
-        
         with st.spinner("Processing PDFs..."):
             st.session_state.vector_db = index_documents(uploaded_files)
 
@@ -40,12 +39,9 @@ if st.button("Ask AI Lawyer"):
 
     if st.session_state.vector_db is None:
         st.error("Please upload and process PDFs first.")
-        
     elif not user_query.strip():
         st.warning("Please enter a question.")
-
     else:
-
         with st.spinner("Thinking..."):
             response = answer_query(user_query,st.session_state.vector_db)
 

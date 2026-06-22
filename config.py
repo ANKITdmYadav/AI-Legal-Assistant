@@ -3,17 +3,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# ==========================
-# MODEL CONFIG
-# ==========================
-
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 GROQ_MODEL = "openai/gpt-oss-120b"
-
-# ==========================
-# RETRIEVAL CONFIG
-# ==========================
 
 TOP_K_RESULTS = 4
 
@@ -30,11 +22,6 @@ FINAL_TOP_K = 4
 # PATH
 EMBEDDING_PATH = "artifacts/embedding_model"
 RERANKER_PATH = "artifacts/reranker_model"
-
-
-# ==========================
-# ENV VARIABLES
-# ==========================
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
